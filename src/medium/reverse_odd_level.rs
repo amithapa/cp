@@ -27,30 +27,36 @@ use std::cell::RefCell;
 use std::rc::Rc;
 struct Solution;
 impl Solution {
-    fn dfs(root: &Option<Rc<RefCell<TreeNode>>>, level: i32) {
-        if let Some(root_ref) = root {
-            let mut root_node = root_ref.borrow_mut();
+    fn dfs(
+        root1: &Option<Rc<RefCell<TreeNode>>>,
+        root2: &Option<Rc<RefCell<TreeNode>>>,
+        level: i32,
+    ) {
+        match (root1, root2) {
+            (Some(root1_ref), Some(root2_ref)) => {
+                let mut root1_node = root1_ref.borrow_mut();
+                let mut root2_node = root2_ref.borrow_mut();
 
-            if level & 1 == 1 {
-                match (&root_node.left, &root_node.right) {
-                    (Some(left_ref), Some(right_ref)) => {
-                        let mut left_node = left_ref.borrow_mut();
-                        let mut right_node = right_ref.borrow_mut();
-                        // let temp = left_node.val;
-                        // left_node.val = right_node.val
-                        std::mem::swap(&mut left_node.val, &mut right_node.val);
-                    }
-                    _ => {}
+                if level & 1 == 1 {
+                    let temp = root1_node.val;
+                    root1_node.val = root2_node.val;
+                    root2_node.val = temp;
                 }
+
+                Self::dfs(&root1_node.left, &root2_node.right, level + 1);
+                Self::dfs(&root1_node.right, &root2_node.left, level + 1);
             }
-            Self::dfs(&root_node.left, level + 1);
-            Self::dfs(&root_node.right, level + 1);
+            _ => {}
         }
     }
+
     pub fn reverse_odd_levels(
         root: Option<Rc<RefCell<TreeNode>>>,
     ) -> Option<Rc<RefCell<TreeNode>>> {
-        Self::dfs(&root, 0);
+        if let Some(root_ref) = &root {
+            let root_node = root_ref.borrow();
+            Self::dfs(&root_node.left, &root_node.right, 1);
+        }
         root
     }
 }
