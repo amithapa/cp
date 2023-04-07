@@ -10,4 +10,5 @@ mod distribute_coins;
 mod elements_two_bst;
 mod good_nodes_bt;
 mod max_diff_node_ancestor;
+mod max_islands;
 mod reverse_odd_level;
