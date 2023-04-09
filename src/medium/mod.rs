@@ -1,6 +1,7 @@
 mod all_paths;
 mod average_subtree;
 mod balance_bst;
+mod ball_fall;
 mod battleships;
 mod btree_pruning;
 mod containimated_bt;
@@ -9,6 +10,8 @@ mod delete_leafs;
 mod distribute_coins;
 mod elements_two_bst;
 mod good_nodes_bt;
+mod keys_rooms;
+mod lca_bt;
 mod max_diff_node_ancestor;
 mod max_islands;
 mod reverse_odd_level;
