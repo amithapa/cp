@@ -1,3 +1,2 @@
-mod easy;
-mod hard;
-mod medium;
+mod binary_search;
+mod graphs;
